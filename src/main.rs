@@ -1,6 +1,6 @@
 #![feature(proc_macro_hygiene, decl_macro)]
 
-use rocket::{fs::FileServer, get, launch, routes};
+use rocket::{fs::FileServer, fs::relative, get, launch, routes};
 
 mod templates;
 
@@ -8,7 +8,7 @@ mod templates;
 fn rocket() -> _ {
     rocket::build()
         .mount("/", routes![index])
-        .mount("/public", FileServer::from("public"))
+        .mount("/public", FileServer::from(relative!("public")))
 }
 
 #[get("/")]
